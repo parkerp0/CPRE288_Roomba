@@ -41,12 +41,13 @@ void button_init() {
 	// listed below. You will learn more about additional steps in a later lab.
 
 	// 1) Turn on PORTE system clock, do not modify other clock enables
-	//SYSCTL_RCGCGPIO_R |=
+	SYSCTL_RCGCGPIO_R |= 0x10;
 	// You may need to add a delay here of several clock cycles for the clock to start, e.g., execute a simple dummy assignment statement, such as "long delay = SYSCTL_RCGCGPIO_R".
+  // long delay = SYSCTL_RCGCGPIO_R;
   // Instead, use the PRGPIO register and busy-wait on the peripheral ready bit for PORTE.
-  // while ((SYSCTL_PRGPIO_R & 0x??) == 0) {};
+  while ((SYSCTL_PRGPIO_R & 0x10) == 0) {};
 	// 2) Set the buttons as inputs, do not modify other PORTE wires
-	// GPIO_PORTE_DIR_R &=
+	GPIO_PORTE_DIR_R &= ~0xF;
 
 	// 3) Enable digital functionality for button inputs,
 	//    do not modify other PORTE enables

@@ -22,7 +22,7 @@ int main(void) {
 	button_init();
 	timer_init(); // Must be called before lcd_init(), which uses timer functions
 	lcd_init();
-	            // Don't forget to initialize the cyBot UART before trying to use it
+	cyBot_uart_init();            // Don't forget to initialize the cyBot UART before trying to use it
 
 	// YOUR CODE HERE
 

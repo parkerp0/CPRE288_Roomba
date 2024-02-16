@@ -1,7 +1,7 @@
 
 #define THRESHHOLD 30
 #define REJECTANGLE 20
-#define REJECTDIST
+#define REJECTDIST  150
 
 #include "Timer.h"
 #include "lcd.h"
@@ -46,7 +46,7 @@ int main() {
         c=cyBot_getByte();
         if(c=='m')
         {
-            for(i=15;i<165;i+=1)
+            for(i=15;i<165;i+=2)
             {
                 avg=0;
                 cyBOT_Scan(i,scan);
@@ -84,7 +84,7 @@ int main() {
                     obs[obsCount-1].degrees = (obs[obsCount-1].end - obs[obsCount-1].start);
                     obs[obsCount-1].center = (obs[obsCount-1].start + (obs[obsCount-1].degrees/2));
                     sprintf(message,"OBSEND: %d, start: %d, End: %d, width: %d, Distance: %f ,center: %f\n\r",obs[obsCount-1].num,obs[obsCount-1].start,obs[obsCount-1].end,obs[obsCount-1].degrees, obs[obsCount-1].distance,obs[obsCount-1].center);
-                    if(obs[obsCount-1].degrees<REJECTANGLE)
+                    if(obs[obsCount-1].degrees<REJECTANGLE || obs[obsCount-1].distance > REJECTDIST)
                     {
                         obsCount--;
                     }
@@ -100,7 +100,7 @@ int main() {
                 obs[obsCount-1].distance = minDist; // (obs[obsCount-1].distance + scan->sound_dist) /2;
                 obs[obsCount-1].degrees = (obs[obsCount-1].end - obs[obsCount-1].start);
                 obs[obsCount-1].center = (obs[obsCount-1].start + (obs[obsCount-1].degrees/2));
-                if(obs[obsCount-1].degrees<REJECTANGLE)
+                if(obs[obsCount-1].degrees<REJECTANGLE || obs[obsCount-1].distance > REJECTDIST)
                 {
                     obsCount--;
                 }
@@ -118,7 +118,7 @@ int main() {
                 turn_left(sensor_data,smallestOBS->center - 90);
             else
                 turn_right(sensor_data,90- smallestOBS->center);
-            move_forward(sensor_data,(smallestOBS->distance-4)*10);
+            move_forward(sensor_data,(smallestOBS->distance-6)*10);
 
             free(obs);
             obs = NULL;

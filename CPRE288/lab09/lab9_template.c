@@ -10,7 +10,7 @@
 
 // Uncomment or add any include directives that are needed
 
-#define REPLACEME 0
+
 
 int main(void) {
 	timer_init(); // Must be called before lcd_init(), which uses timer functions
@@ -23,9 +23,9 @@ int main(void) {
 
 	while(1)
 	{
-
-      sprintf(message, "%f",ping_getDistance());
-      lcd_printf(message);
+	    ping_getPulseWidth();
+//      sprintf(message, "%f",ping_getDistance());
+//      lcd_printf(message);
       timer_waitMillis(100);
 
 	}

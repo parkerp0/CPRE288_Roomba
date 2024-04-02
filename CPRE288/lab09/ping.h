@@ -6,6 +6,7 @@
 #ifndef PING_H_
 #define PING_H_
 
+#include "lcd.h"
 #include <stdint.h>
 #include <stdbool.h>
 #include <inc/tm4c123gh6pm.h>
@@ -32,5 +33,7 @@ void TIMER3B_Handler(void);
  * @return Distance in cm
  */
 float ping_getDistance (void);
+
+unsigned long ping_getPulseWidth();
 
 #endif /* PING_H_ */
